@@ -1,0 +1,44 @@
+<!DOCTYPE html> 
+<html> 
+  
+<head> 
+    <title> 
+        Check a number is Prime or 
+        not using JavaScript 
+    </title> 
+      
+    <script type="text/javascript">
+
+var Object2=[];
+var Objectsvalues=[
+
+{Id: 100,name: "Ravi",description: "RaviDesc",Status:"Complete"},
+{
+    Id: 101,name: "Anil",description: "AnilDesc" ,Status:"InProgress"
+},
+{Id: 102,name: "Sandeep",description: "SandeepDesc", Status:"InProgress"}
+]
+ function GetData(){
+         debugger;
+        for (let index = 0; index<Objectsvalues.length; index++) {
+     if(Objectsvalues[index].Status=="Complete")
+     {
+         let data=Objectsvalues[index];
+         Object2.push(data)
+     }
+    }
+     console.log(Object2);
+    }
+ </script> 
+</head> 
+  
+<body> 
+    <center> 
+         <form name="myform"> 
+        <input type="button" value="Check" onClick="GetData()"> 
+           
+        </form> 
+    </center> 
+</body> 
+  
+</html> 
