@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+       <style>
+        .button {
+  background-color: #4c6faf; /* Green */
+  border: none;
+  color: white;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+::placeholder {
+  color: #909;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: #909;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+ color: #909;
+}
+    </style>
+</head>
+<body>
+    
+    <div class="content">
+       <div class="inline-content">
+           <div>
+            <button onclick="handlers.ShowProjectData();"  class="button">View Project  Data List</button>
+           
+            <button onclick="handlers.ValidatedProjectData();"  class="button">Check</button>
+            <button onclick="handlers.Clear(event,true);"  class="button">Clear All data</button>
+           </div>
+           <br/>
+           <div>
+            <input type="number" id="ProjectId"  placeholder="Enter project id">
+            <input type="text" id="addProjectname"  placeholder="Enter project Name">
+            <input type="text" id="addProjectDesc"  placeholder="Enter project Description">
+            <input type="text" id="addProjectStatus" style="width: 256px;"  placeholder="Enter project status (Complete/In progress)">           
+            <button onclick="handlers.addProjectSdata();"  class="button">Add Project</button>
+        </div>
+            
+           
+       </div>
+       <div class="result-area" id="result">          
+       </div>
+       <div id="checkResult">
+
+       </div>
+    </div>
+  
+     
+    <script>
+
+var projectsObj ={
+   ProjectListData: [],    
+    addProject:function(projectObj){
+      if(projectObj.id){       
+        this.ProjectListData.push(projectObj);
+      }      
+    }
+   }
+
+var handlers = {
+    addProjectSdata: function () {
+        ProjectListData
+        var addProjectId = document.getElementById('ProjectId').value;
+        var addProjectname = document.getElementById('addProjectname').value;
+        var addProjectDesc = document.getElementById('addProjectDesc').value;
+        var addProjectStatus = document.getElementById('addProjectStatus').value;
+        var projectCheck = document.getElementById('checkResult');
+        projectsObj.addProject({id:addProjectId,name:addProjectname,description:addProjectDesc,status:addProjectStatus});       
+        addProjectname.value = '';
+        addProjectId.value = '';
+        addProjectDesc.value = '';
+        addProjectStatus.value = '';
+        projectCheck.innerHTML='';
+    },
+    ShowProjectData: function () {
+        ProjectListData
+        var projectCheck = document.getElementById('checkResult');
+        projectCheck.innerHTML='';
+        var projectResult = document.getElementById('result');
+        if(projectsObj.ProjectListData.length==0){           
+            projectResult.textContent='No record found.';
+        } else {
+            projectResult.innerHTML=''
+            var projectTable = document.createElement('table');
+            projectTable.border=1;
+            projectTable.innerHTML = '';
+            projectsObj.ProjectListData.forEach((val,i)=>{
+                var projectTr = document.createElement('tr');    
+                for(let prop in val){
+                    let projectTd = document.createElement('td');
+                    projectTd.textContent=val[prop];
+                    projectTr.append(projectTd);
+                }
+                projectTable.append(projectTr);            
+            });
+            projectResult.append(projectTable);
+        }
+               
+    },
+
+    ValidatedProjectData(){
+        ProjectListData
+        var tableData= document.querySelector('table');
+        var trcount=0;
+        var projectCheck = document.getElementById('checkResult');
+        projectCheck.innerHTML='';
+        if(tableData){
+          trcount= table.getElementsByTagName('tr').length;
+        }
+        if(projectsObj.ProjectListData.length==trcount){
+            projectCheck.textContent='<tr> is equal to size of project list';
+        } else {
+            projectCheck.textContent='<tr> is not equal to size of project list';
+        }
+    },
+    
+
+    Clear:function(event,value)
+    {
+        ProjectListData
+if(value)
+      
+       document.getElementById('ProjectId').value="";
+        var addProjectname = document.getElementById('addProjectname').value="";
+        var addProjectDesc = document.getElementById('addProjectDesc').value="";
+        var addProjectStatus = document.getElementById('addProjectStatus').value="";
+        this.ProjectListData=[]
+        var element = document.getElementsByTagName("tr"), index;
+
+for (index = element.length - 1; index >= 0; index--) {
+    element[index].parentNode.removeChild(element[index]);
+}
+    }
+};
+
+
+    </script>
+</body>
+</html>
